@@ -408,7 +408,7 @@ form ul {
 .packages-short {
   width: 50%;
   float: left;
-  height: 415px;
+  min-height: 415px;
 }
 .packages-short li a {
   display: block;

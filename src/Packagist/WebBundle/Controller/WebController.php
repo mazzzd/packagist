@@ -92,6 +92,7 @@ class WebController extends Controller
         $verRepo = $this->getDoctrine()->getRepository('PackagistWebBundle:Version');
         $newSubmitted = $pkgRepo->getQueryBuilderForNewestPackages()->setMaxResults(10)->getQuery()->getResult();
         $newReleases = $verRepo->getLatestReleases(10);
+        $all = $pkgRepo->getAllReleases();
         $randomIds = $this->getDoctrine()->getConnection()->fetchAll('SELECT id FROM package ORDER BY RAND() LIMIT 10');
         $random = $pkgRepo->createQueryBuilder('p')->where('p.id IN (:ids)')->setParameter('ids', $randomIds)->getQuery()->getResult();
         try {
@@ -108,10 +109,11 @@ class WebController extends Controller
         }
 
         $data = array(
-            'newlySubmitted' => $newSubmitted,
-            'newlyReleased' => $newReleases,
+            'all' => $all,
+//            'newlySubmitted' => $newSubmitted,
+//            'newlyReleased' => $newReleases,
             'random' => $random,
-            'popular' => $popular,
+//            'popular' => $popular,
             'searchForm' => $this->createSearchForm()->createView(),
         );
 

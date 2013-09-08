@@ -260,4 +260,14 @@ class PackageRepository extends EntityRepository
 
         return $qb;
     }
+
+    public function getAllReleases()
+    {
+        $qb = $this->getEntityManager()->createQueryBuilder();
+        $qb->select('p')
+            ->from('Packagist\WebBundle\Entity\Package', 'p')
+            ->orderBy('p.name', 'ASC');
+
+        return $qb->getQuery()->getResult();
+    }
 }
